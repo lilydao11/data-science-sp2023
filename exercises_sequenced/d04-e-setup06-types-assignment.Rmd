@@ -40,7 +40,7 @@ airport == ATL
 **Observations**:
 
 - Write your explanation here
-
+airport was assigned as a "character" type but was not checked with a character type (ATL not in quotation marks and not BOS either)
 ## Casting
 <!-- -------------------------------------------------- -->
 
@@ -55,7 +55,8 @@ Sometimes our data will not be in the form we want; in this case we may need to 
 
 ```{r q2-task}
 v_string <- c("00", "45", "90")
-v_integer <- NA_real_
+v_integer <- as.integer(v_string)
+v_integer
 ```
 
 Use the following test to check your work.
