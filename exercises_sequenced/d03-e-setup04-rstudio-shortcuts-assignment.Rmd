@@ -32,33 +32,34 @@ knitr::opts_chunk$set(echo = TRUE)
 * Within the script editor or a chunk
 
     * `Alt` + `-`
+    Insert assignment operator (=)
 
 
     * `Shift` + `Cmd/Ctrl` + `M`
-
+    Insert pipe operator (%>%)
 
     * `Cmd/Ctrl` + `Enter`
-
+    Run selection/line
 
     * `F1` (Note: on a Mac you need to press `fn` + `F1`)
-
+    Show help for function at cursor
 
 	* `Cmd/Ctrl` + `Shift` + `C`
-
+    Comment/Uncomment selection/line
 
 
 * Within R Markdown
 
     * `Cmd/Ctrl` + `Alt` + `I`
-
+    Insert chunk
 
 * Within a chunk
 
     * `Shift` + `Cmd/Ctrl` + `Enter`
-
+      Source current doc (with)
 
     * `Ctrl` + `I` (`Cmd` + `I`)
-
+      Fix line indentations
 
 Try this below!
 
@@ -66,9 +67,9 @@ Try this below!
 ## Re-indent these lines
 c(
   "foo",
-    "bar",
-      "goo",
-        "gah"
+  "bar",
+  "goo",
+  "gah"
 )
 ```
 
@@ -82,7 +83,7 @@ c(
 
 
 ### __q3__ How do stop the code in a chunk from running once it has started?
-
+esc
 
 ### __q4__ How do you show the "Document Outline" in RStudio?
 
