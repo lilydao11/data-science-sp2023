@@ -52,13 +52,16 @@ Some nomenclature:
 *Hint*: You can run `?diamonds` to get information on a built-in dataset.
 
 ```{r load-packages, eval=FALSE}
-```
+?diamonds
+## cut measures the quality of the cut (str), color measures the diamond color from best to worst (str), clarity measures how clear diamond is (str)
 
 ### __q2__ Run `glimpse(diamonds)`; what variables does `diamonds` have?
+glimpse(diamonds)
+## variables: carat, cut, color, clarity, depth, table, price, x (length), y (width), z (depth)
 
-
-### __q3__ Run `summary(diamonds)`; what are the common values for each of the
-variables? How widely do each of the variables vary?
+### __q3__ Run `summary(diamonds)`; what are the common values for each of the variables? How widely do each of the variables vary?
+summary(diamonds)
+## carat: 4.81, cut: ideal to fair, color: D to J (best to worst), clarity: SI1 to VVS1 (third worst to third best), depth: 36mm, table: 52, price: 18497, x: 10.74, y: 58.9, z: 31.8 
 
 *Hint*: The `Median` and `Mean` are common values, while `Min` and `Max` give us
 a sense of variation.
@@ -69,7 +72,14 @@ summary(diamonds)
 
 **Observations**:
 
-- (Write your observations here!)
+- Carat: While the max carat value is high at 5.01, most of the diamonds are around .7-.8 carats
+- Cut: Most diamonds have a very good or better quality cut, I would assume because they are very careful with cuts of diamonds because they have so much value
+- Color: There are relatively few diamonds with a bad color, but most do not have the best color but still good color
+- Clarity: As the clarity of the diamond increases, the quantity of the diamonds decrease
+- Depth: Doesn't vary much, sits typically in the 60s
+- Table: Doesn't vary much, sits typically in the high 50s
+- Price: On average, a diamond from this sample costs $3933, and the max is an outlier at $18.8k
+- Size (x,y,z): The diamonds are typically around 5mm long and wide and around 3mm deep
 
 You should always analyze your dataset in the simplest way possible, build
 hypotheses, and devise more specific analyses to probe those hypotheses. The
@@ -103,7 +113,7 @@ turn it into `diamonds %>% glimpse()`.
 ### __q4__ Use the pipe operator to re-write `summary(diamonds)`.
 
 ```{r q4-task}
-```
+diamonds %>% summary()
 
 ## Reading Data
 <!-- -------------------------------------------------- -->
@@ -113,7 +123,7 @@ So far we've only been looking at built-in datasets. Ultimately, we'll want to r
 ### __q5__ Use the function `read_csv()` to load the file `"./data/tiny.csv"`.
 
 ```{r q5-task}
-
+read_csv("./data/tiny.csv")
 df_q5
 ```
 

@@ -36,6 +36,7 @@ args(rnorm)
 
 ### __q4__ Scroll to the bottom of the help for the `library()` function. How do you list all available packages?
 ?library
+library()
 
 The __examples__ in the help documentation are often *extremely* helpful for
 learning how to use a function (or reminding yourself how its used)! Get used to
