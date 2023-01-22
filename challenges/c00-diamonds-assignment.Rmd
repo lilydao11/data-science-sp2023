@@ -54,23 +54,25 @@ In this first stage, you will explore the `diamonds` dataset and document your o
 
 ```{r q1-task}
 ## TASK: Plot `price` vs `carat` below
-## Your code here!
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = carat, y = price))
 ```
 
 **Observations**:
 
-- (Write your observations here!)
+- It seems that commonly, the carat value of a diamond will be a multiple of 0.5, perhaps due to ease of understanding for those who aren't knowledgeable with diamonds. As for the relationship with price and carat value, the relationship is positive with the higher carat value tending to cost more. Our dataset had more values of lower carat and cost values, likely due to these diamonds being more common than diamonds with high carat values. There is almost a "hard stop" around a price of $18k with most diamonds under a price of $10k.
 
 ### __q2__ Create a visualization showing variables `carat`, `price`, and `cut` simultaneously. Experiment with which variable you assign to which aesthetic (`x`, `y`, etc.) to find an effective visual.
 
 ```{r q2-task}
 ## TASK: Plot `price`, `carat`, and `cut` below
-## Your code here!
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = carat, y = price, color = cut))
 ```
 
 **Observations**:
 
-- (Write your observations here!)
+- With this graph, we can see that, just as before, as the carat value increases, the price tends to increase. Now we have the value of the cut, which has shown that the ideal cut is quite spread out, spanning from a fraction of a carat and a few hundred dollars to over two carats and over $18k dollars. There seems to be a slight pattern with worse cuts lowering the value of the diamond, but there are still some diamonds with a fair cut that are going for over $10k. As for making the graph, I find cut being the variable shown through an aesthetic is the best since it maintains the clear positive correlation between carat and price that the other graphs (cut vs carat or cut vs price) did not display.
 
 
 # Communication
