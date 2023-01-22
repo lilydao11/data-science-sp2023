@@ -30,28 +30,35 @@ knitr::opts_chunk$set(echo = TRUE)
 *Hint*: We learned how to inspect a dataset in `e-data-00-basics`!
 
 ```{r q1-task, eval=FALSE}
+?diamonds
 ```
+#cut is the quality of cut, color is the quality of color, and clarity is how clear the diamond is
 
 ### __q2__ Use your "standard checks" to determine what variables the dataset has.
 
-
+diamonds
 Now that we have the list of variables in the dataset, we know what we can visualize!
 
 ### __q3__ Using `ggplot`, visualize `price` vs `carat` with points. What trend do
 you observe?
 
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = carat, y = price))
+
 *Hint*: Usually the language `y` vs `x` refers to the `vertical axis` vs
 `horizontal axis`. This is the opposite order from the way we often specify `x,
 y` pairs. Language is hard!
 
+##  
+
 ```{r q3-task}
-## TODO: Complete this code
-ggplot(diamonds)
+ggplot(data = diamonds) +
+  geom_point(mapping = aes(x = carat, y = price))
 ```
 
 **Observations**:
 
-- (Write your observations here!)
+- The highter the carat value, the higher the price is typically. That being said, the price seems to fade out around $18k and is very dense under $7.5k. Most diamonds under $7.5k are 1.5 carats or lower.
 
 ## A note on *aesthetics*
 
@@ -69,12 +76,13 @@ simultaneously.
 
 ```{r q4-task}
 ## TODO: Complete this code
-ggplot(diamonds)
+ggplot(diamonds) +
+  geom_point(mapping = aes(x = carat, y = price, color = cut))
 ```
 
 **Observations**:
 
-- (Write your observations here!)
+- The higher the carat diamond, the more it seems like the cuts are poor. As expected with higher carat diamonds, there are higher prices. Generally there are a lot of ideally cut diamonds, suggesting that the cutting of diamonds is really precise, no matter the cost.
 
 <!-- include-exit-ticket -->
 # Exit Ticket
