@@ -120,8 +120,10 @@ ggplot(data = diamonds) +
   and carat value, the relationship is positive with the higher carat
   value tending to cost more. Our dataset had more values of lower carat
   and cost values, likely due to these diamonds being more common than
-  diamonds with high carat values. There is almost a “hard stop” around
-  a price of \$18k with most diamonds under a price of \$10k.
+  diamonds with high carat values. Adding on to this, there are very few
+  diamonds in the dataset with a carat value of over 2.5. There is
+  almost a “hard stop” around a price of \$18k with most diamonds under
+  a price of \$10k.
 
 ### **q2** Create a visualization showing variables `carat`, `price`, and `cut` simultaneously. Experiment with which variable you assign to which aesthetic (`x`, `y`, etc.) to find an effective visual.
 
