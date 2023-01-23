@@ -1,7 +1,7 @@
 ---
 title: "Getting Started: Diamonds"
-author: "(Your name here)"
-date: 2020-
+author: "Lily Dao"
+date: 2022-01-23
 output:
   github_document:
     toc: true

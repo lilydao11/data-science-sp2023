@@ -1,7 +1,7 @@
 Getting Started: Diamonds
 ================
-(Your name here)
-2020-
+Lily Dao
+2022-01-23
 
 - <a href="#grading-rubric" id="toc-grading-rubric">Grading Rubric</a>
   - <a href="#individual" id="toc-individual">Individual</a>
