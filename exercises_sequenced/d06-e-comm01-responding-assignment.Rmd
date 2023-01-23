@@ -8,6 +8,9 @@ time: 30
 reading: 10
 ---
 
+
+Hello!
+
 # Communication: Active and Constructive Responding
 
 *Purpose*: We're going to spend **a lot** of time in this class discussing datasets. To help prepare ourselves for productive discussions, we're going to use some ideas from [positive psychology](https://en.wikipedia.org/wiki/Positive_psychology) to help make our discussions more pleasant and productive.

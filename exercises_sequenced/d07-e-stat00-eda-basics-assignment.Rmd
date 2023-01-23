@@ -44,6 +44,10 @@ library(tidyverse)
 to do? Do those simple checks on the diamonds dataset below.
 
 ```{r q0-task}
+head(diamonds)
+?diamonds
+glimpse(diamonds)
+summary(diamonds)
 ```
 
 I'm going to walk you through a train of thought I had when studying the
@@ -70,7 +74,8 @@ diamonds %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- The ideal cut was the most common diamond in the dataset. With the quality of cut decreasing, the quantity of diamonds with the respective quality of cut decreases. This left ideal cut diamonds to be the most numerous and fair cut diamonds to be the least numerous. This means the hypothesis was incorrect.
+  
 
 ## Hypothesis 2
 
@@ -87,7 +92,7 @@ diamonds %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- This plot isn't the best to be able to answer this hypothesis. That being said, we can see from this graph that all the different cuts have diamonds that are valued around the most expensive diamond. Fair cuts and good cuts fade out a little toward the top of the graph, showing they have less diamonds that are valued so high. I would say that this hypothesis is incorrect because other cut diamonds are valued around equally as high, but this graph makes that difficult to conclude with confidence.
 
 The following is a set of *boxplots*; the middle bar denotes the median, the
 boxes denote the *quartiles* (upper and lower "quarters" of the data), and the
