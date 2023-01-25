@@ -107,7 +107,7 @@ diamonds %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- This does not support the hypothesis because from this graph, we can see that on average, ideal cut diamonds are priced lower than any other cut of diamond. Beyond this, we can see that a three quarters of the ideal cut diamonds are priced below $5000 dollars, making it the cut with the most diamonds under $5000. Furthermore, we don't see a definite pattern or correlation between cut and price, as they have similar means despite ideal cut diamonds being the lowest mean and fair cut diamonds being around the highest mean.
 
 ## Unraveling Hypothesis 2
 
@@ -127,7 +127,7 @@ diamonds %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- Supporting the Wikipedia article, the fair cut diamonds are on average, 1.0 carat. This makes sense because diamond cutters will choose to cut the diamonds worse so that the carat value will be 1.0, which is more desirable to diamond buyers despite. This would explain why we saw fair diamonds costing more: the fair cut is often to cut the diamond to 1.0 carat, a more desirable and expensive diamond. 
 
 ## Footnotes
 
