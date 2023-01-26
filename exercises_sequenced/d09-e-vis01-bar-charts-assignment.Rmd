@@ -35,6 +35,11 @@ the same visual using `geom_col()`.
 mpg %>%
   ggplot(aes(trans)) +
   geom_bar()
+
+mpg %>% 
+  count(trans) %>% 
+  ggplot(mapping = aes(x = trans, y = n)) +
+  geom_col()
 ```
 
 The reading mentioned that when using `geom_col()` our x-y data should be
@@ -56,8 +61,8 @@ mpg %>% filter(cty == 20)
 
 ```{r q2-task}
 mpg %>%
-  ggplot(aes(x = cty, y = hwy)) +
-  geom_col()
+  ggplot(aes(x = cty, y = hwy), position = "stacked") +
+  geom_col(color="white")
 ```
 
 **Observations**:
