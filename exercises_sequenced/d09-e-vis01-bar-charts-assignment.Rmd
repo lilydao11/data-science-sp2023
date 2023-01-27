@@ -66,7 +66,7 @@ mpg %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- This graph does a poor job of displaying the data effectively. We are using a column graph for data that isn't one-to-one. This raises issues because one value in cty can have many values for hwy. This has made it so the data is confusing to read on this graph and derive any sort of meaning from because we can't really see the hwy values or the amount that there are. 
 
 A more standard way to visualize this kind of data is a *scatterplot*, which
 we'll study later. For now, here's an example of a more effective way to
@@ -92,7 +92,7 @@ mpg %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- This graph clearly displays the amount of cars in each class of car. From this graph, we can see that SUVs are the most common class of car, followed by compact cars. 2seater cars are by far the least common, followed by minivans. This graph is easily readable and gives us straight-forward information: class of car and count in dataset. 
 
 ```{r q4-v2}
 ## TODO: Run this code without changing, describe your observations on the data
@@ -102,12 +102,15 @@ mpg %>%
 ```
 
 **Observations**:
-- Write your observations here!
+- This graph is fairly easy to read, showing the class of car, the count in the data set, and the type of drive that the car has. From the height of the bars, we see the count of each class, and from the color blocks of the bars, we see the distribution of type of drive for the car. For example, all 2 seaters are rear wheel drive while subcompact cars are mostly front wheel drive, followed by rear wheel drive, then four wheel drive.
 
 **Compare `v1` and `v2`**:
 
 - Which visualization---`v1` or `v2`---enabled you to make more observations?
+  The v2 visualization enabled me to make more observations because there was an additional variable that was displayed. With the v1 visualization, I could only see the count per class of car, while with the v2 visualization, I can see the count per class of car and the distribution of type of drive per class. 
+  
 - What was the difference between `v1` and `v2`?
+  The v1 visualization displays the relationship between two variables while the v2 visualizations displays the relationship between three variables. This made it so information could be derived from v2 while the v1 visualization was more visually simple and easy to comprehend at a glance. 
 
 ### __q4__ The following code has a bug; it does not do what its author intended.
 Identify and fix the bug. What does the resulting graph tell you about the
@@ -118,13 +121,13 @@ do this in a future exercise.
 
 ```{r q4-task}
 mpg %>%
-  ggplot(aes(x = manufacturer, fill = class), position = "dodge") +
-  geom_bar() +
+  ggplot(aes(x = manufacturer, fill = class)) +
+  geom_bar(position = "dodge") +
   theme(axis.text.x = element_text(angle = 270, vjust = 0.5, hjust = 0))
 ```
 
 **Observations**
-- Your observations here!
+- The issues with the initial graph was that is was not doing position = "dodge" as the author had intended. To get the graph to display as intended, the statement needed to be nested in geom_bar and not an argument in aes(). This graph allows us to see the distribution of amount of specific class of car by manufacturer. Toyota produces the widest distribution of classes of cars, while some manufacturers only produce one type of car. This graph can be hard to read when not looking at specific subsections but does provide interesting information when examined. 
 
 ### __q5__ The following graph is hard to read. What other form of faceting would
 make the visual more convenient to read? Modify the code below with your
@@ -134,7 +137,7 @@ suggested improvement.
 mpg %>%
   ggplot(aes(x = cyl)) +
   geom_bar() +
-  facet_grid(~ manufacturer)
+  facet_wrap(. ~ manufacturer)
 ```
 
 <!-- include-exit-ticket -->
