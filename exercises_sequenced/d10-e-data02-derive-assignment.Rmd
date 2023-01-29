@@ -40,7 +40,7 @@ filter(diamonds, cut == "Ideal")
 ## Version 2
 diamonds %>% filter(cut == "Ideal")
 ```
-
+- These functions do the same thing, but they are written differently. Version 1 is written by nesting and Version 2 is written with pipes. They result in the same table.
 
 The reading mentioned various kinds of *summary functions*, which are summarized
 in the table below:
@@ -58,7 +58,9 @@ in the table below:
 ### __q2__ Using `summarize()` and a logical summary function, determine the number of rows with `Ideal` `cut`. Save this value to a column called `n_ideal`.
 
 ```{r q2-task}
-df_q2
+df_q2 <-
+diamonds %>%
+  summarise(n_ideal = sum(cut == "Ideal"))
 ```
 
 The following test will verify that your `df_q2` is correct:
@@ -78,10 +80,10 @@ print("Great job!")
 
 ```{r q3-task}
 diamonds %>%
-  ## group_by(color, clarity) %>%
+  group_by(color, clarity) %>%
   summarize(price = mean(price))
 ```
-
+- The first (uncommented) response just shows the mean price of all the diamonds. Meanwhile, the second response shows the mean price of the diamond based on its color and clarity. This gives more information about how the price may relate to these categories.
 
 ### Vectorized Functions
 
@@ -111,14 +113,30 @@ tibble to `df_q4`, and assign the appropriate values to `cov_depth` and
 ```{r q4-task}
 ## TODO: Compute the `cov_depth` and `cov_diff` and assign the result to df_q4
 df_q4 <-
-  diamonds
+  diamonds %>%
+  mutate(
+    depth_computed = 100 * 2 * z / (x + y),
+    diff = depth - depth_computed
+    ) %>%
+  summarise(
+    depth_m = mean(depth, na.rm = TRUE),
+    depth_sd = sd(depth, na.rm = TRUE),
+    diff_m = mean(diff, na.rm = TRUE),
+    diff_sd = sd(diff, na.rm = TRUE),
+    cov_depth = depth_sd / depth_m,
+    cov_diff = diff_sd / diff_m
+  )
+    
 df_q4
 ```
 
 **Observations**
 
 - Comment on the relative values of `cov_depth` and `cov_diff`.
+cov_depth is significantly less than cov_diff.This means that there is little variation between the depths of the diamonds, but there is great variation in the differences between the actual depth and the calculated depth. 
+
 - Why is `cov_diff` so large?
+cov_diff is likely as large as it is because the mean difference is so small. This means that if the standard deviation is greater than the mean, (and it is) the coefficient of variation will be greater than one, or in this case, significantly greater than one.
 
 The following test will verify that your `df_q4` is correct:
 
@@ -142,6 +160,14 @@ about the various cuts? Do those observations match your expectations?
 
 ```{r q5-task}
 ## TODO: Assign result to df_q5
+df_q5 <-
+  diamonds %>%
+  group_by(cut) %>%
+  summarise(
+    price_mean = mean(price),
+    price_sd = sd(price),
+    price_cov = price_sd / price_mean
+  )
 df_q5
 ```
 
@@ -166,7 +192,7 @@ print("Excellent!")
 
 **Observations**:
 
-- Write your observations here!
+- The average price for a premium diamond is the most while the average price for an ideal diamond is the least. From this, we can see that there isn't a strong correlation between the cut of the diamond and the price. As for the coefficient of variation, ideal diamonds vary the greatest in price, whereas fair diamonds vary the least. Overall, the coefficient of variation for all cuts is quite high, leading me to believe that cut doesn't play a major role in the price.
 
 <!-- include-exit-ticket -->
 # Exit Ticket
