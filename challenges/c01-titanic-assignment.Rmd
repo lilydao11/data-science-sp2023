@@ -72,7 +72,6 @@ df_titanic %>% summarize(total = sum(n))
   - The Wikipedia article estimates that there were 2,224 passengers and crew aboard whereas this code calculates 2,201 people on the Titanic at the time of the sinking. This is a 23 passenger difference. 
 - If yes, what might account for those differences?
   - This difference may be due to the way that data was transferred or collected between the two sources. For this dataset in R, the children are divided by sex whereas on Wikipedia they are not. This could lead to miscounting, double counting, or leaving someone out. I assume the Titanic have some way of tracking the passengers on the ship due to the extensive data of what class each of the passengers was. This would leave me to believe that the crew was the least documented of the people on the boat, which could lead to some miscounting on either end.
-  - ...
 
 ### __q3__ Create a plot showing the count of persons who *did* survive, along with aesthetics for `Class` and `Sex`. Document your observations below.
 

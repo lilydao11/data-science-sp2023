@@ -155,7 +155,6 @@ df_titanic %>% summarize(total = sum(n))
     was. This would leave me to believe that the crew was the least
     documented of the people on the boat, which could lead to some
     miscounting on either end.
-  - …
 
 ### **q3** Create a plot showing the count of persons who *did* survive, along with aesthetics for `Class` and `Sex`. Document your observations below.
 
