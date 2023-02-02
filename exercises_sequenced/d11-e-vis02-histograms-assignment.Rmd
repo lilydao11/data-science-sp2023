@@ -28,8 +28,11 @@ library(tidyverse)
 ### __q1__ Using the graphs generated in the chunks `q1-vis1` and `q1-vis2` below, answer:
 
 - Which `class` has the most vehicles?
+The SUV class has the most vehicles.
 - Which `class` has the broadest distribution of `cty` values?
+The subcompact class has the broadest distribution of 'cty' values.
 - Which graph---`vis1` or `vis2`---best helps you answer each question?
+The vis1 graph best helps answer question 1 and vis2 graph best helps answer question 2.
 
 ```{r q1-vis1}
 ## NOTE: No need to modify
@@ -54,7 +57,8 @@ In the previous exercise, we learned how to *facet* a graph. Let's use that part
 ```{r q2-task}
 mpg %>%
   ggplot(aes(cty, color = class)) +
-  geom_density()
+  geom_density() +
+  facet_wrap(. ~ class, scales = "free_y")
 ```
 
 In the reading, we learned that the "most important thing" to keep in mind with `geom_histogram()` and `geom_freqpoly()` is to _explore different binwidths_. We'll explore this idea in the next question.
@@ -67,7 +71,7 @@ diamonds %>%
   filter(carat < 1.1) %>%
 
   ggplot(aes(carat)) +
-  geom_histogram(binwidth = 0.01, boundary = 0.005) +
+  geom_histogram(binwidth = 0.005, boundary = 0) +
   scale_x_continuous(
     breaks = seq(0, 1, by = 0.1)
 
@@ -75,7 +79,7 @@ diamonds %>%
 ```
 
 **Observations**
-- Write your observations here!
+- A common theme seen amongst the graphs is that a round tenth place for the carat value leads to a higher count. This is likely because someone buying a diamond is much more likely to want a 0.3 carat diamond over a 0.29 carat diamond despite the price difference. Another thing to note is that there is a sharp jump at each even tenth place, then the distribution tapers off. This means that diamond with a slightly less carat value than the even tenths place diamond is much less desirable than a diamond with a slightly higher carat value.
 
 <!-- include-exit-ticket -->
 # Exit Ticket
