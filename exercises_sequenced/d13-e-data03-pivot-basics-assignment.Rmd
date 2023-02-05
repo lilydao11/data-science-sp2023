@@ -70,7 +70,7 @@ cases
 
 ```{r q1-test}
 ## TODO: Modify with your answer
-q1_answer <- 0
+q1_answer <- 2
 
 ## NOTE: The following will test your answer
 if (((q1_answer + 56) %% 3 == 1) & (q1_answer > 0)) {
@@ -100,7 +100,7 @@ alloys
 
 ```{r q2-test}
 ## TODO: Modify with your answer
-q2_answer <- 0
+q2_answer <- 3
 
 ## NOTE: The following will test your answer
 if (((q2_answer + 38) %% 3 == 2) & (q2_answer > 0)) {
@@ -291,6 +291,7 @@ df_base <-
          2,      8,  "B",
          3,      7,  "C"
   )
+df_base
 ```
 
 We're going to play a game: I'm going to modify the data, and your job is to
@@ -317,7 +318,12 @@ Undo the modification using a single pivot. Don't worry about column order.
 ```{r q3-task}
 df_q3_res <-
   df_q3 %>%
-## NOTE: Add your pivot here!
+    pivot_wider(
+      names_from = id,
+      names_prefix = "X-",
+      values_from = value
+    )
+  
 
 df_q3_res
 all_equal(df_base, df_q3_res) # Checks equality; returns TRUE if equal
@@ -344,7 +350,12 @@ Check the documentation for `pivot_longer`.
 ```{r q4-task}
 df_q4_res <-
   df_q4 %>%
-## NOTE: Add your pivot here!
+  pivot_longer(
+    values_to = "X-0",
+    names_to = "key",
+    cols = -"X-1",
+    values_drop_na = TRUE
+  )
 
 df_q4_res
 all_equal(df_base, df_q4_res) # Checks equality; returns TRUE if equal
@@ -370,8 +381,12 @@ Undo the modification using a single pivot. Don't worry about column order.
 ```{r q5-task}
 df_q5_res <-
   df_q5 %>%
-## NOTE: Add your pivot here!
-
+  pivot_longer(
+    names_to = c(".value", "key"),
+    names_sep = "_",
+    cols = everything()
+  )
+  
 df_q5_res
 all_equal(df_base, df_q5_res) # Checks equality; returns TRUE if equal
 ```
@@ -384,8 +399,16 @@ Using a single pivot on `df_base` create your own *challenge* dataframe. You wil
 ## NOTE: No need to edit; this is setup for the exercise
 df_q6 <-
   df_base %>%
-## NOTE: Add your pivot here!
-
+  pivot_longer(
+    names_to = "X",
+    names_pattern = "(\\d)",
+    names_transform = list(X = as.integer),
+    values_to = "value",
+    cols = -key
+    
+    
+  )
+  
 df_q6
 ```
 
@@ -394,7 +417,11 @@ Don't forget to create a solution!
 ```{r q6-solution}
 df_q6_res <-
   df_q6 %>%
-## NOTE: Add your pivot here!
+  pivot_wider(
+    names_from = X,
+    names_prefix = "X-",
+    values_from = value
+  )
 
 df_q6_res
 all_equal(df_base, df_q6_res) # Checks equality; returns TRUE if equal
