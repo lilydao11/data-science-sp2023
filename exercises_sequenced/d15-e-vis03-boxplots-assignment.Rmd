@@ -39,13 +39,13 @@ your pick!
 ```{r q1-task}
 diamonds %>%
   ## TODO: Use mutate to add the column `carat_cut`
+  mutate(carat_cut = cut_width(carat, width = 1)) %>%
   ggplot(aes(x = carat_cut, y = price)) +
   geom_boxplot()
 ```
 
 **Observations**
-- Write your observations here!
-- Make sure to distinguish between the trend in median (bar), quantiles (box edges), and whiskers (vertical lines)
+- In general, the median price increases with the carat value. With a carat value 0.5 or lower, the median price is around 1000 dollars and the most expensive diamond of that group reaches around 350 dollars. On the other hand, the median price of a diamond between 3.5 and 4.5 carats is over 15000 dollars. For the most part, the data is centered, at least in the middle 50% of the data. For the low and high end of the carat values, the IQR is tiny, whereas with more common carat values in the middle, the IQR is relatively large. As carat values increase, the top whisker gets shorter because it reaches the limit of the most expensive diamond. Diamonds with carat values between 0.5 and 1.5 have a wide range with many outliers on the upper end.
 
 ### __q2__ The following code visualizes the count of diamonds of *all* carats according to their cut and color. Modify the code to consider *only* diamonds with `carat >= 2`. Does the most common group of cut and color change?
 
@@ -62,6 +62,7 @@ Modify the following code:
 ```{r q2-task}
 ## TODO: Modify the code below to consider only diamonds with carat >= 2
 diamonds %>%
+  filter(carat >= 2) %>%
   count(cut, color) %>%
   ggplot(aes(cut, color, fill = n)) +
   geom_tile()
@@ -69,13 +70,15 @@ diamonds %>%
 
 **Observations**:
 - Did the most common group of cut and color change?
+  Yes, after filtering for carat values greater than or equal to 2, the most common group switched from ideal cut with G color to premium cut with I color.
 
 ### __q3__ The following plot has overlapping x-axis labels. Use a verb from the reading to `flip` the coordinates and improve readability.
 
 ```{r q3-task}
 mpg %>%
   ggplot(aes(manufacturer, hwy)) +
-  geom_boxplot()
+  geom_boxplot() +
+  coord_flip()
 ```
 
 This is a simple---but important---trick to remember when visualizing data with many categories.
