@@ -92,11 +92,14 @@ looks.
 ## TODO: Add a "gam" and "lm" smooth to the following plot
 diamonds %>%
   ggplot(aes(carat, price)) +
-  geom_point()
+  geom_point() +
+  geom_smooth(method = "gam", color = "red") +
+  geom_smooth(method = "lm")
 ```
 
 **Observations**:
 - Does the "gam" trend look linear?
+  The "gam" trend does not look linear, it goes up to about $15000, then it stops increasing and levels off in a way. This does not look like a linear relationship.
 
 ### __q2__ Add non-overlapping labels to the following scattterplot using the
 provided `df_annotate`.
@@ -108,6 +111,7 @@ it, and adhere to best-practices!
 
 ```{r q2-task}
 ## TODO: Use df_annotate below to add text labels to the scatterplot
+library(ggrepel)
 df_annotate <-
   mpg %>%
   group_by(class) %>%
@@ -119,6 +123,7 @@ df_annotate <-
 mpg %>%
   ggplot(aes(displ, hwy)) +
   geom_point(aes(color = class))
+  geom_label_repel(mapping = aes(label = ))
 ```
 
 ### __q3__ Study the following scatterplot: Note whether city (`cty`) or highway

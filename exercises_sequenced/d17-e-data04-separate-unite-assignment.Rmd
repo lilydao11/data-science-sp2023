@@ -66,6 +66,11 @@ genes
 ```{r q1-task}
 df_q1 <-
   genes %>%
+  unite(col = "pairs", parent1, parent2, sep = "", remove = FALSE) %>%
+  pivot_wider(
+    names_from = parent2,
+    values_from = pairs
+  )
 ## TODO: pivot and unite here!
 
 df_q1
