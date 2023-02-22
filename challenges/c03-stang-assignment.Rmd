@@ -26,7 +26,7 @@ Unlike exercises, **challenges will be graded**. The following rubrics define ho
 <!-- ------------------------- -->
 
 | Category    | Needs Improvement                                                                                                | Satisfactory                                                                                                               |
-|-----------------|--------------------------|-----------------------------|
+|------------------|--------------------------|----------------------------|
 | Effort      | Some task **q**'s left unattempted                                                                               | All task **q**'s attempted                                                                                                 |
 | Observed    | Did not document observations, or observations incorrect                                                         | Documented correct observations based on analysis                                                                          |
 | Supported   | Some observations not clearly supported by analysis                                                              | All observations clearly supported by analysis (table, graph, etc.)                                                        |
@@ -115,6 +115,19 @@ print("Very good!")
 ### **q2** Perform a basic EDA on the aluminum data *without visualization*. Use your analysis to answer the questions under *observations* below. In addition, add your own *specific* question that you'd like to answer about the data---you'll answer it below in q3.
 
 ```{r q2-task}
+uni_alloy <- 
+  distinct(df_stang_long,alloy)
+uni_alloy
+
+uni_angle <-
+  distinct(df_stang_long, angle)
+uni_angle
+
+uni_thickness <-
+  distinct(df_stang_long, thick)
+uni_thickness
+
+
 ##
 ```
 
@@ -123,12 +136,12 @@ print("Very good!")
 -   Is there "one true value" for the material properties of Aluminum?
     -   There is not "one true value" for the material properties of aluminum, all the values seems to fluctuate with different variable changes.
 -   How many aluminum alloys are in this dataset? How do you know?
-    -   There is one aluminum alloy in this dataset and I know this because the value for the alloy column is the same all the way down. This means that there is only one alloy being tested.
+    -   There is one aluminum alloy in this dataset and I know this through looking for distinct values down the "alloy" column. This yielded a 1x1 table of one alloy. This means that there is only one alloy being tested.
 -   What angles were tested?
-    -   Three different angles were tested: 0 degrees, 45 degrees, and 90 degrees.
+    -   Three different angles were tested: 0 degrees, 45 degrees, and 90 degrees. This was shown through looking at the distinct values in the "angle" column. This yielded a 3x1 table of three unique angles tested.
 -   What thicknesses were tested?
-    -   Four different thicknesses were tested: .022 in, .03 in, .064 in, and .081 in.
--   Does thickness or angle affect E more?
+    -   Four different thicknesses were tested: .022 in, .03 in, .064 in, and .081 in. This was shown through looking at the distinct values in the "thick" column. This yielded a 4x1 table of four unique thicknesses tested.
+-   My question: Does thickness or angle affect E more?
 
 ## Visualize
 
@@ -138,14 +151,14 @@ print("Very good!")
 
 ```{r q3-task}
 df_stang_long %>%
-  mutate(bin_thickness = cut(thick, breaks = c(0, .022, .03, .06, .064, .081))) %>%
+  mutate(thickness = as.character(thick)) %>%
   ggplot() +
-  geom_boxplot(mapping = aes(x = bin_thickness, y = E))
+  geom_boxplot(mapping = aes(x = thickness, y = E))
   
 df_stang_long %>%
-  mutate(bin_angle = cut(angle, breaks=c(-1, 0, 40, 45, 90))) %>% 
+  mutate(angle = as.character(angle)) %>% 
   ggplot() +
-  geom_boxplot(mapping = aes(x = bin_angle, y = E))
+  geom_boxplot(mapping = aes(x = angle, y = E))
 ## TASK: Investigate your question from q1 here
 ```
 

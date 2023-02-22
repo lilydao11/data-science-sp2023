@@ -232,6 +232,44 @@ print("Very good!")
 ### **q2** Perform a basic EDA on the aluminum data *without visualization*. Use your analysis to answer the questions under *observations* below. In addition, add your own *specific* question that you’d like to answer about the data—you’ll answer it below in q3.
 
 ``` r
+uni_alloy <- 
+  distinct(df_stang_long,alloy)
+uni_alloy
+```
+
+    ## # A tibble: 1 × 1
+    ##   alloy  
+    ##   <chr>  
+    ## 1 al_24st
+
+``` r
+uni_angle <-
+  distinct(df_stang_long, angle)
+uni_angle
+```
+
+    ## # A tibble: 3 × 1
+    ##   angle
+    ##   <int>
+    ## 1     0
+    ## 2    45
+    ## 3    90
+
+``` r
+uni_thickness <-
+  distinct(df_stang_long, thick)
+uni_thickness
+```
+
+    ## # A tibble: 4 × 1
+    ##   thick
+    ##   <dbl>
+    ## 1 0.022
+    ## 2 0.032
+    ## 3 0.064
+    ## 4 0.081
+
+``` r
 ##
 ```
 
@@ -242,16 +280,21 @@ print("Very good!")
     aluminum, all the values seems to fluctuate with different variable
     changes.
 - How many aluminum alloys are in this dataset? How do you know?
-  - There is one aluminum alloy in this dataset and I know this because
-    the value for the alloy column is the same all the way down. This
-    means that there is only one alloy being tested.
+  - There is one aluminum alloy in this dataset and I know this through
+    looking for distinct values down the “alloy” column. This yielded a
+    1x1 table of one alloy. This means that there is only one alloy
+    being tested.
 - What angles were tested?
   - Three different angles were tested: 0 degrees, 45 degrees, and 90
-    degrees.
+    degrees. This was shown through looking at the distinct values in
+    the “angle” column. This yielded a 3x1 table of three unique angles
+    tested.
 - What thicknesses were tested?
   - Four different thicknesses were tested: .022 in, .03 in, .064 in,
-    and .081 in.
-- Does thickness or angle affect E more?
+    and .081 in. This was shown through looking at the distinct values
+    in the “thick” column. This yielded a 4x1 table of four unique
+    thicknesses tested.
+- My question: Does thickness or angle affect E more?
 
 ## Visualize
 
@@ -261,18 +304,18 @@ print("Very good!")
 
 ``` r
 df_stang_long %>%
-  mutate(bin_thickness = cut(thick, breaks = c(0, .022, .03, .06, .064, .081))) %>%
+  mutate(thickness = as.character(thick)) %>%
   ggplot() +
-  geom_boxplot(mapping = aes(x = bin_thickness, y = E))
+  geom_boxplot(mapping = aes(x = thickness, y = E))
 ```
 
 ![](c03-stang-assignment_files/figure-gfm/q3-task-1.png)<!-- -->
 
 ``` r
 df_stang_long %>%
-  mutate(bin_angle = cut(angle, breaks=c(-1, 0, 40, 45, 90))) %>% 
+  mutate(angle = as.character(angle)) %>% 
   ggplot() +
-  geom_boxplot(mapping = aes(x = bin_angle, y = E))
+  geom_boxplot(mapping = aes(x = angle, y = E))
 ```
 
 ![](c03-stang-assignment_files/figure-gfm/q3-task-2.png)<!-- -->
