@@ -35,7 +35,7 @@ library(gapminder)
 ## TODO: Fix the following code
 gapminder %>%
   filter(continent == "Asia") %>%
-  ggplot(aes(year, lifeExp)) +
+  ggplot(aes(year, lifeExp, group  = country)) +
   geom_line()
 ```
 
@@ -51,7 +51,9 @@ mpg %>%
 
 **Observations**:
 - What does a line plot assume about the data?
+A line plot assumes we are just looking at one group of data where we won't see certain weird patterns (such as multiple data points sharing an x-value).
 - How does the `mpg` dataset violate this assumption?
+The mpg dataset has multiple data points in each displ value which causes it to violate the assumption a line plot makes and makes a line plot unfit for this case.
 
 ### __q3__ The following graph shows both the raw data and a smoothed version. Describe the trends that you can see in the different curves.
 
@@ -66,7 +68,9 @@ economics %>%
 
 **Observations**:
 - What can you tell based on the `Raw` data?
+Every few years there is a rise and fall of the amount of unemployed people. Around 1983 we see a spike to around 12000 unemployed and around 2010 it raches a peak of just over 15000 unemployed people.
 - What can you tell based on the `Smoothed` data?
+Over the past nearly fifty years, unemployment has increased signfiicantly, but there was a period when unemployment declined. From around 1998 forward, unemployment has only increased and is on the upward trend.
 
 <!-- include-exit-ticket -->
 # Exit Ticket

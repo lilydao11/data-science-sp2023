@@ -57,7 +57,7 @@ bind_cols(beatles1, beatles2)
 
 ### __q1__ Describe what is wrong with the result of `bind_cols` above and how it happened.
 
-- Write your answer here
+- The names don't properly match up with the surnames because they are out of order and there wasn't a way to match them up otherwise. This is because there was no overlapping data between the two sets.
 
 We'll use the following `beatles3` to *correctly* join the data.
 
@@ -87,7 +87,8 @@ beatles_joined <-
 ```{r q2-task}
 df_q2 <-
 ## TODO: Join beatles1 and beatles2 using beatles3 to match rows
-
+left_join(beatles1, beatles3, by = "name")
+right_join(df_q2, beatles2, by = "surname")
 df_q2
 ```
 
