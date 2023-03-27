@@ -188,9 +188,10 @@ df_antibiotics %>%
     c('penicillin', 'streptomycin', 'neomycin')
   ) %>%
   ggplot() +
-  geom_count(mapping = aes(x = bacteria, y = drug, shape = factor(gram), size = MIC, group = MIC, color = MIC <= 0.1)) +
+  geom_count(mapping = aes(x = drug, y = bacteria, size = MIC, group = MIC, color = MIC <= 0.1)) +
   scale_size(trans = "log10") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+  facet_wrap(~ gram) + 
+  theme(axis.text.x = element_text(angle = 30, vjust = 1, hjust = 1))
 ```
 
 ![](c05-antibiotics-assignment_files/figure-gfm/q1.2-1.png)<!-- -->
