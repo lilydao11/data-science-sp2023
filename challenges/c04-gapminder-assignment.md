@@ -225,9 +225,9 @@ can.
 year_min_data <-
   gapminder %>%
   filter(year == year_min) %>%
-  filter(gdpPercap <= 60000) %>%
   ggplot() +
-    geom_boxplot(mapping = aes(continent, gdpPercap))
+    geom_boxplot(mapping = aes(continent, gdpPercap)) +
+    scale_y_log10()
 year_min_data
 ```
 
@@ -253,9 +253,9 @@ year_min_data
   significant outlier where in 1952 the GDP per capita was over
   \$100,000. Since most continents had a GDP per capita of under
   \$15,000, all the data was compressed to be able to fit this outlier.
-  To be able to see most of the data in an informative manner, I took
-  out this outlier. This allows us to see the distribution of the GDP
-  per capita for the different continents.
+  To be able to see most of the data in an informative manner, I
+  adjusted the y-axis to be a log scale. While this is less intuitive to
+  interpret, it prevents the compression of most of the data.
 
 ### **q3** You should have found *at least* three outliers in q2 (but possibly many more!). Identify those outliers (figure out which countries they are).
 
@@ -338,7 +338,6 @@ label:
 ## NOTE: No need to edit, use ideas from this in q4 below
 gapminder %>%
   filter(year == max(year)) %>%
-
   ggplot(aes(continent, lifeExp)) +
   geom_boxplot() +
   geom_point(
@@ -359,7 +358,6 @@ variables; think about using different aesthetics or facets.
 year_min_vs_max <-
   gapminder %>%
   filter(year == min(year) | year == max(year)) %>%
-  filter(gdpPercap <= 60000) %>%
   ggplot(aes(continent, gdpPercap)) +
   geom_boxplot() +
   geom_point(
@@ -367,6 +365,7 @@ year_min_vs_max <-
     mapping = aes(color = country),
     size = 2
   ) +
+  scale_y_log10() +
   facet_grid(~year)
 year_min_vs_max
 ```
@@ -385,11 +384,11 @@ year_min_vs_max
   outlier countries we saw in 1952 that had a major increase in GDP per
   capita by 2007 (\>\$10,000) include Canada, United States, Saudi
   Arabia, Bahrain, and Switzerland. Kuwait is still an outlier in Asia,
-  but it now fits on the graph, showing that the GDP per capita in
-  Kuwait dropped a significant amount between 1952 and 2007. Oceania
-  still doesn’t have any outliers but it does have a greater spread of
-  data. There are only a few additional outliers in the data in 2007
-  that weren’t outliers in 1952 and they are all in Africa.
+  but the GDP per capita in Kuwait dropped a significant amount between
+  1952 and 2007. Oceania still doesn’t have any outliers but it does
+  have a greater spread of data. There are only a few additional
+  outliers in the data in 2007 that weren’t outliers in 1952 and they
+  are all in Africa.
 
 # Your Own EDA
 
