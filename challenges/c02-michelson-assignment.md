@@ -239,24 +239,10 @@ human judgment.\[2\]
 
 ``` r
 ## TODO: Compare Michelson's estimate and error against the true value
-df_michelson %>%
-  mutate(RealError = abs(LIGHTSPEED_MICHELSON - 299792.458), EstimateError = LIGHTSPEED_PM)
+print(paste(RealError = LIGHTSPEED_MICHELSON - LIGHTSPEED_VACUUM, EstimateError = LIGHTSPEED_PM))
 ```
 
-    ## # A tibble: 100 × 6
-    ##    Date                Distinctness  Temp Velocity RealError EstimateError
-    ##    <dttm>              <fct>        <dbl>    <dbl>     <dbl>         <dbl>
-    ##  1 1879-06-05 00:00:00 3               76   299850      152.            51
-    ##  2 1879-06-07 00:00:00 2               72   299740      152.            51
-    ##  3 1879-06-07 00:00:00 2               72   299900      152.            51
-    ##  4 1879-06-07 00:00:00 2               72   300070      152.            51
-    ##  5 1879-06-07 00:00:00 2               72   299930      152.            51
-    ##  6 1879-06-07 00:00:00 2               72   299850      152.            51
-    ##  7 1879-06-09 00:00:00 3               83   299950      152.            51
-    ##  8 1879-06-09 00:00:00 3               83   299980      152.            51
-    ##  9 1879-06-09 00:00:00 3               83   299980      152.            51
-    ## 10 1879-06-09 00:00:00 3               83   299880      152.            51
-    ## # … with 90 more rows
+    ## [1] "151.542000000016 51"
 
 **Observations**: - Is Michelson’s estimate of the error (his
 uncertainty) greater or less than the true error? - Michelson’s estimate
@@ -343,25 +329,35 @@ df_q2 %>%
 
 ![](c02-michelson-assignment_files/figure-gfm/q4-cf-real-simulated-1.png)<!-- -->
 
-**Observations**: Similarities - Generally, both graphs follow a rising
-and falling pattern over time so the simulation and reality lined up
-when looking at velocity in vacuum increases and decreases. - Both
-graphs have about the same amount of the graph going out of the
-uncertainty range (1/3). - The mean velocity in vacuum tends to stay
-within 100 km/s of the actual speed of light, with about one exception
-in each data set.
+**Observations**: Similarities
 
-Differences - The simulated results tend to stay within the estimated
-error a lot more than the actual results do. This would makes sense
-because if Michelson simulated this and found that his data sat way out
-of his error range, he would have probably adjusted his uncertainty. -
-The real results vary more than the simulated results, with the
-simulated results generally staying relatively flat. - The real results
-hopped out of the uncertainty range early June whereas the simulated
-results hopped out of the uncertainty range in late June. - The
-simulated data seems to have more outliers than the real data. The
-outliers of the real data are more spread out from one another than the
-outliers of the simulated data.
+\- Generally, both graphs follow a rising and falling pattern over time
+so the simulation and reality lined up when looking at velocity in
+vacuum increases and decreases.
+
+\- Both graphs have about the same amount of the graph going out of the
+uncertainty range (1/3).
+
+\- The mean velocity in vacuum tends to stay generally within 100 km/s
+of the actual speed of light, with about two exceptions in simulated
+data and six exceptions in the real data.
+
+Differences
+
+\- The simulated results tend to stay within the estimated error a lot
+more than the actual results do. The simulated results have two points
+outside of the estimated error while the real results have six points
+outside of the estimated error. This would makes sense because if
+Michelson simulated this and found that his data sat way out of his
+error range, he would have probably adjusted his uncertainty.
+
+\- The real results vary more than the simulated results, with the
+simulated results generally staying relatively flat and experiencing
+less rises and falls.
+
+\- The real results hopped out of the uncertainty range early June
+whereas the simulated results hopped out of the uncertainty range in
+late June.
 
 ### **q5** You have access to a few other variables. Construct a few visualizations of `VelocityVacuum` against these other factors. Are there other patterns in the data that might help explain the difference between Michelson’s estimate and `LIGHTSPEED_VACUUM`?
 
