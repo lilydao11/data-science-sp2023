@@ -110,14 +110,14 @@ Remember in `e-stat02-probability` we learned how to estimate probabilities as t
 ## TASK: Choose a sample size and generate samples
 n <- 1000 # Choose a sample size
 
-x <- runif(n, min = 0, max = 1)
-y <- runif(n, min = 0, max = 1)
-euclidean_dist <- function(x, y) sqrt((x^2 + y^2))
-distance <- data.frame("distance" = sqrt((x^2 + y^2)))
 df_q1 <- 
-  data.frame(x, y) %>%
-  mutate(in_A = (distance < 1)) %>%
-      summarize(count_total = n(), count_A = sum(in_A), fr = mean(in_A), stat = fr* 4)
+  tibble(
+    x = runif(n, min = 0, max = 1),
+    y = runif(n, min = 0, max = 1)
+  ) %>% 
+  mutate(in_A = (sqrt(x^2 + y^2) < 1),
+         stat = in_A * 4
+         )
 df_q1
 ```
 
@@ -125,15 +125,14 @@ df_q1
 
 ```{r q2-task}
 ## TASK: Estimate pi using your data from q1
-sims <- 10000
-stat <- numeric(sims)
-for (i in 1:sims) {
-  x <- runif(n, min = 0, max = 1)
-  y <- runif(n, min = 0, max = 1)
-  distance <- sqrt(x^2 + y^2)
-  in_circle <- distance <= 1
-  stat[i] <- sum(in_circle) * 4 / n
-}
+df_q2 <-
+  df_q1 %>%
+  summarize(
+    count_total = n(),
+    count_A = sum(in_A),
+    stat = mean(stat)
+  )
+df_q2
 ```
 
 # Quantifying Uncertainty
@@ -145,20 +144,21 @@ You now have an estimate of $\pi$, but how trustworthy is that estimate? In `e-s
 ### **q3** Using a CLT approximation, produce a confidence interval for your estimate of $\pi$. Make sure you specify your confidence level. Does your interval include the true value of $\pi$? Was your chosen sample size sufficiently large so as to produce a trustworthy answer?
 
 ```{r q3-task}
-confidence <- 0.96
-
+confidence <- 0.95
 q95 <- qnorm(1 - (1 - confidence) / 2)
-sd <- sd(stat)
-mean <- mean(stat)
+
 pi_confidence <-
   df_q1 %>%
+  summarise(
+    pi_mean = mean(stat),
+    pi_sd = sd(stat)
+  ) %>% 
   mutate(
-    se = sd / sqrt(n),
-    low = mean - q95 * se,
-    high = mean + q95 * se,
+    se = pi_sd / sqrt(n),
+    low = pi_mean - q95 * se,
+    high = pi_mean + q95 * se,
     in_range = (pi <= high & pi >= low)
-  ) %>%
-  summarise(low, high, confidence, in_range)
+  )
 pi_confidence
 ```
 
@@ -167,9 +167,9 @@ pi_confidence
 -   Does your interval include the true value of $\pi$?
     -   My interval does include the true value of pi. Besides just seeing if the number is between my high and low value, I implemented a mutate that creates a new variable "in_range". "in_range" is a boolean that tells me whether pi is within my confidence interval.
 -   What confidence level did you choose?
-    -   I chose a confidence level of 96%, denoted by the variable "confidence".
+    -   I chose a confidence level of 95%, denoted by the variable "confidence".
 -   Was your sample size $n$ large enough? Why do you say that?
-    -   I do believe that my sample size n was large enough. I adjusted my confidence interval to 99.9% to see how my sample size would hold up. Running this about fifteen times, pi was always in range. I also had no trouble with pi being out of range for a 96% confidence interval. Knowing that a 95% confidence level is considered about ideal in the statistics world, I feel that these results show that my sample size was large enough.
+    -   I do believe that my sample size n was large enough for some contexts, but not others. I did not have issues with pi being out of range for a 95% confidence level. Seeing that the my 95% confidence level gives me confidence of about one to two digits, this may be suitable for a context of something with a large tolerance or when we use 3.14 for pi. That being said, where more exact numbers are necessary (like when we're talking about tight tolerances or space application), we definitely want more confidence and more digits of pi to use.
 
 # References
 

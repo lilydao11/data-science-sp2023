@@ -194,34 +194,50 @@ set will estimate the probability of points landing in that area (see
 ## TASK: Choose a sample size and generate samples
 n <- 1000 # Choose a sample size
 
-x <- runif(n, min = 0, max = 1)
-y <- runif(n, min = 0, max = 1)
-euclidean_dist <- function(x, y) sqrt((x^2 + y^2))
-distance <- data.frame("distance" = sqrt((x^2 + y^2)))
 df_q1 <- 
-  data.frame(x, y) %>%
-  mutate(in_A = (distance < 1)) %>%
-      summarize(count_total = n(), count_A = sum(in_A), fr = mean(in_A), stat = fr* 4)
+  tibble(
+    x = runif(n, min = 0, max = 1),
+    y = runif(n, min = 0, max = 1)
+  ) %>% 
+  mutate(in_A = (sqrt(x^2 + y^2) < 1),
+         stat = in_A * 4
+         )
 df_q1
 ```
 
-    ##   count_total count_A    fr  stat
-    ## 1        1000     787 0.787 3.148
+    ## # A tibble: 1,000 × 4
+    ##         x     y in_A   stat
+    ##     <dbl> <dbl> <lgl> <dbl>
+    ##  1 0.358  0.213 TRUE      4
+    ##  2 0.142  0.762 TRUE      4
+    ##  3 0.267  0.333 TRUE      4
+    ##  4 0.303  0.690 TRUE      4
+    ##  5 0.788  0.758 FALSE     0
+    ##  6 0.980  0.980 FALSE     0
+    ##  7 0.314  0.181 TRUE      4
+    ##  8 0.0402 0.930 TRUE      4
+    ##  9 0.384  0.168 TRUE      4
+    ## 10 0.782  0.921 FALSE     0
+    ## # … with 990 more rows
 
 ### **q2** Using your data in `df_q1`, estimate $\pi$.
 
 ``` r
 ## TASK: Estimate pi using your data from q1
-sims <- 10000
-stat <- numeric(sims)
-for (i in 1:sims) {
-  x <- runif(n, min = 0, max = 1)
-  y <- runif(n, min = 0, max = 1)
-  distance <- sqrt(x^2 + y^2)
-  in_circle <- distance <= 1
-  stat[i] <- sum(in_circle) * 4 / n
-}
+df_q2 <-
+  df_q1 %>%
+  summarize(
+    count_total = n(),
+    count_A = sum(in_A),
+    stat = mean(stat)
+  )
+df_q2
 ```
+
+    ## # A tibble: 1 × 3
+    ##   count_total count_A  stat
+    ##         <int>   <int> <dbl>
+    ## 1        1000     796  3.18
 
 # Quantifying Uncertainty
 
@@ -235,25 +251,28 @@ to assess your $\pi$ estimate.
 ### **q3** Using a CLT approximation, produce a confidence interval for your estimate of $\pi$. Make sure you specify your confidence level. Does your interval include the true value of $\pi$? Was your chosen sample size sufficiently large so as to produce a trustworthy answer?
 
 ``` r
-confidence <- 0.96
-
+confidence <- 0.95
 q95 <- qnorm(1 - (1 - confidence) / 2)
-sd <- sd(stat)
-mean <- mean(stat)
+
 pi_confidence <-
   df_q1 %>%
+  summarise(
+    pi_mean = mean(stat),
+    pi_sd = sd(stat)
+  ) %>% 
   mutate(
-    se = sd / sqrt(n),
-    low = mean - q95 * se,
-    high = mean + q95 * se,
+    se = pi_sd / sqrt(n),
+    low = pi_mean - q95 * se,
+    high = pi_mean + q95 * se,
     in_range = (pi <= high & pi >= low)
-  ) %>%
-  summarise(low, high, confidence, in_range)
+  )
 pi_confidence
 ```
 
-    ##        low     high confidence in_range
-    ## 1 3.138102 3.144912       0.96     TRUE
+    ## # A tibble: 1 × 6
+    ##   pi_mean pi_sd     se   low  high in_range
+    ##     <dbl> <dbl>  <dbl> <dbl> <dbl> <lgl>   
+    ## 1    3.18  1.61 0.0510  3.08  3.28 TRUE
 
 **Observations**:
 
@@ -263,16 +282,18 @@ pi_confidence
     mutate that creates a new variable “in_range”. “in_range” is a
     boolean that tells me whether pi is within my confidence interval.
 - What confidence level did you choose?
-  - I chose a confidence level of 96%, denoted by the variable
+  - I chose a confidence level of 95%, denoted by the variable
     “confidence”.
 - Was your sample size $n$ large enough? Why do you say that?
-  - I do believe that my sample size n was large enough. I adjusted my
-    confidence interval to 99.9% to see how my sample size would hold
-    up. Running this about fifteen times, pi was always in range. I also
-    had no trouble with pi being out of range for a 96% confidence
-    interval. Knowing that a 95% confidence level is considered about
-    ideal in the statistics world, I feel that these results show that
-    my sample size was large enough.
+  - I do believe that my sample size n was large enough for some
+    contexts, but not others. I did not have issues with pi being out of
+    range for a 95% confidence level. Seeing that the my 95% confidence
+    level gives me confidence of about one to two digits, this may be
+    suitable for a context of something with a large tolerance or when
+    we use 3.14 for pi. That being said, where more exact numbers are
+    necessary (like when we’re talking about tight tolerances or space
+    application), we definitely want more confidence and more digits of
+    pi to use.
 
 # References
 
