@@ -305,10 +305,10 @@ df_q2 <-
     values_to = "value",
     cols = c(high_GPA, both_SAT)
   ) %>% 
-  ggplot(mapping = aes(univ_GPA, value))+
+  ggplot(mapping = aes(value, univ_GPA))+
   geom_point() +
   geom_smooth() +
-  facet_wrap(~variable, scales = "free_y")
+  facet_wrap(~variable, scales = "free_x")
 df_q2
 ```
 
@@ -453,11 +453,17 @@ conf_int_sat
 - Which correlations are significantly nonzero?
   - Both correlations are significantly nonzero. The correlation between
     SAT and university GPA is approximately 0.685 and the correlation
-    between high school GPA and university GPA is approximately 0.78.
+    between high school GPA and university GPA is approximately 0.78. We
+    know that the correlations are signficantly nonzero and
+    statisitically significant because neither confidence interval
+    includes zero.
 - Which of `high_GPA` and `both_SAT` seems to be more strongly
   correlated with `univ_GPA`?
-  - There seems to be a stronger correlation between SAT and university
-    GPA than between high school GPA and university GPA.
+  - There seems to be a stronger correlation between high_GPA and
+    univ_GPA than between both_SAT and univ_GPA. This is because we see
+    a stronger correlation value and a confidence interval with a higher
+    range of values from looking at the correlation between high_GPA and
+    univ_GPA.
 - How do the results here compare with the visual you created in q2?
   - These results line up pretty accurately with the visual I created in
     q2. With the SAT and university GPA, we see that the points for a
@@ -603,11 +609,13 @@ fit_uni_sat %>%
 - What is the confidence interval on the coefficient of `both_SAT`? Is
   this coefficient significantly different from zero?
   - The confidence interval on the coefficient of both_SAT is \[0.00172,
-    0.00342\]. This coefficient (.00257) is not significantly different
-    from zero.
+    0.00342\]. This coefficient (.00257) is signficantly different from
+    zero and statistically significant due to the fact that the
+    confidence interval does not include zero.
 - By itself, how well does `both_SAT` predict `univ_GPA`?
   - By itself, both_SAT does not predict univ_GPA very well since we got
-    a coefficient that is not significantly different from zero.
+    a coefficient that is very low showing that both_SAT is not a great
+    predictor.
 
 Remember from `e-model03-interp-warnings` that there are challenges with
 interpreting regression coefficients! Let’s investigate that idea
@@ -660,21 +668,24 @@ fit_uni_high
 **Observations**:
 
 - How well do these models perform, compared to the one you built in q6?
-  - These models perform better than the one built in q6 as they have a
-    fit coefficent that is significantly different from zero, indicating
-    that there may be a relationship between univ_GPA and high_GPA, as
-    well as univ_GPA and both_SAT with high_GPA as an indicator.
+  - The model predicting univ_GPA with high_GPA and both_SAT does not
+    perform as well for both_SAT as the model in q6 since this model
+    yields a coefficient that is not significantly different from zero.
+    That being said, this model also shows how well high_GPA predicts
+    univ_GPA which is something the previous model in q6 did not.
 - What is the confidence interval on the coefficient of `both_SAT` when
   including `high_GPA` as a predictor?? Is this coefficient
   significantly different from zero?
-  - The confidence interval is \[0.19877, 1.71425\] on the coefficient
+  - The confidence interval is \[-0.00067, 0.00174\] on the coefficient
     of both_SAT including high_GPA as a predictor. The coefficient
-    estimate itself (0.75774) is significantly different from zero.
+    estimate (0.000534) is not significantly different from zero because
+    the confidence interval includes zero.
 - How do the hypothesis test results compare with the results in q6?
-  - Both of these test results reject the null hypothesis because the
-    coefficients are significantly different from zero. This differs
-    from the results in q6 where we found that the test results did not
-    reject the null hypothesis because the coefficient was not
+  - The test results for both_SAT and high_GPA as predictors for
+    univ_GPA while looking at both_SAT shows that the coefficient is not
+    significantly different from zero. high_GPA alone and paired with
+    both_SAT as a predictor is significantly different from zero. This
+    differs from q6 that showed that both_SAT as a predictor is
     significantly different from zero.
 
 ## Synthesize
@@ -690,19 +701,20 @@ Before closing, let’s synthesize a bit from the analyses above.
 - Between `both_SAT` and `high_GPA`, which single variable would you
   choose to predict `univ_GPA`? Why?
   - I would use high_GPA to predict univ_GPA because we found that the
-    coefficient for high_GPA is significantly different from zero,
-    rejecting the null hypothesis, while both_SAT’s coefficient was not
-    significantly different from zero. This means that high_GPA and
-    univ_GPA are more likely to have a relationship.
+    correlation between high_GPA and univ_GPA was stronger than the
+    correlation between both_SAT and univ_GPA. This would give me more
+    confidence that high school GPA is a stronger predictor of one’s
+    university GPA than the SAT score.
 - Is `both_SAT` an effective predictor of `univ_GPA`? What specific
   pieces of evidence do you have in favor of `both_SAT` being effective?
   What specific pieces of evidence do you have against?
   - Generally, I would say that both_SAT is not an effective predictor
-    of univ_GPA. We have the Pearon’s correlation that is in favor of
-    both_SAT being effective, having a value of around 0.75. That being
-    said, our model fit did not reject the null hypothesis between
-    univ_GPA and both_SAT indicating that there is likely not a
-    relationship between these two values.
+    of univ_GPA. We have the Pearson’s correlation that is in favor of
+    both_SAT being effective, having a value of around 0.685. That being
+    said, in q6 and q7 we found that both_SAT was not a good predictor
+    and in q7 we found that the correlation value was not signficantly
+    different from zero. This would lead me to conclude that both_SAT
+    should not be used as a predictor of univ_GPA.
 
 # End Notes
 
